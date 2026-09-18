@@ -1,62 +1,121 @@
-# Puean Chuay Tiu Mobile App
+# Puean Chuay Tu – แอปพลิเคชันเพื่อนช่วยติว
 
-## About
+## เกี่ยวกับโปรเจกต์
 
-Puean Chuay Tiu is a university Mini Project for discovering student tutors, viewing their available courses and schedules, and chatting with them. The project intentionally keeps a small academic-project scope.
+Puean Chuay Tu เป็น Mini Project แอปพลิเคชัน Flutter สำหรับนักศึกษา ใช้ค้นหาเพื่อนติวหรือติวเตอร์ ดูรายละเอียดคอร์สและตารางสอน ติดต่อผ่านแชต และสมัครเป็นติวเตอร์ โดยทำงานร่วมกับ [PHP Backend API](https://github.com/methiyada-da/pct-app-backend)
 
-## Existing Features
+## ความสามารถของระบบ
 
-- Register and log in
-- Search tutors and courses
-- View tutor/course details and real schedule rows
-- One-to-one chat with five-second polling
-- View and update a profile
-- Apply to become a tutor
-- Create, edit, open/close, and delete owned tutor courses
+- สมัครสมาชิก เข้าสู่ระบบ และออกจากระบบ
+- ค้นหาติวเตอร์หรือคอร์สด้วยคำค้น
+- กรองผลลัพธ์ตามกลุ่มวิชา รายวิชา และช่วงราคา
+- ดูข้อมูลติวเตอร์ รายละเอียดคอร์ส ราคา และตารางสอน
+- เปิดห้องสนทนาแบบหนึ่งต่อหนึ่งและรับส่งข้อความ โดยโหลดข้อความใหม่ทุก 5 วินาที
+- ดูข้อมูลส่วนตัว เปลี่ยนรูปโปรไฟล์ และเปลี่ยนรหัสผ่าน
+- สมัครเป็นติวเตอร์และติดตามสถานะคำขอ
+- สำหรับติวเตอร์ที่ได้รับอนุมัติ: สร้าง แก้ไข เปิด/ปิด และลบคอร์ส พร้อมกำหนดตารางสอน
 
-## Prototype Features
+ส่วนการจองที่หน้ารายละเอียดติวเตอร์เป็น **Prototype** สำหรับแสดงหน้าจอเท่านั้นและยังไม่บันทึกข้อมูล ส่วนรีวิว การชำระเงิน ประวัติการจอง และการแจ้งเตือนยังไม่มีระบบรองรับ
 
-Booking, reviews, notifications, forgot-password, credits/payment history, booking history, and contact-admin are not implemented. Their unavailable controls are hidden or clearly marked as Prototype; no mock review score is presented as real data.
+## เทคโนโลยีที่ใช้
 
-## Tech Stack
+- Flutter และ Dart
+- `http` สำหรับเรียก Backend API
+- `image_picker` สำหรับเลือกรูปโปรไฟล์
+- Material และ Cupertino Icons
+- ฟอนต์ Kanit จากไฟล์ในโปรเจกต์
+- `flutter_test` และ `flutter_lints` สำหรับการทดสอบและวิเคราะห์โค้ด
 
-- Flutter and Dart
-- PHP REST-like API
-- MySQL / MariaDB
+## หน้าจอและ User Flow
 
-## Screenshots
+แอปมีเมนูหลัก 4 ส่วน ได้แก่ หน้าแรก ค้นหา แชต และโปรไฟล์
 
-Add portfolio screenshots here:
+1. ผู้ใช้เปิดหน้าแรกเพื่อดูคอร์สแนะนำ หรือกรอกคำค้นเพื่อไปยังหน้าค้นหา
+2. หน้าค้นหาแสดงผลตามคำค้นและตัวกรอง เมื่อเลือกคอร์สจะเปิดรายละเอียดติวเตอร์ คอร์ส ราคา และตารางสอน
+3. ผู้ใช้ต้องเข้าสู่ระบบก่อนเริ่มสนทนา จากนั้นแอปจะเปิดหรือสร้างห้องแชตกับติวเตอร์
+4. หน้าโปรไฟล์ใช้สมัครสมาชิก เข้าสู่ระบบ ดูข้อมูลส่วนตัว เปลี่ยนรูปหรือรหัสผ่าน และส่งคำขอสมัครติวเตอร์
+5. เมื่อติวเตอร์ได้รับอนุมัติ จะเข้าหน้าจัดการเพื่อเพิ่ม แก้ไข เปิด/ปิด หรือลบคอร์สและตารางสอนได้
 
-- Login
-- Home
-- Search
-- Tutor Detail
-- Chat
-- Tutor Management
+## การติดตั้งและเปิดใช้งาน
 
-## Project Structure
+### สิ่งที่ต้องมี
 
-- `lib/auth`: registration and login
-- `lib/search`: home, search, and tutor detail
-- `lib/chat`: conversation list and chat room
-- `lib/profile`: profile display and editing
-- `lib/tutor`: tutor application and course management
-- `lib/config.dart`: API URL, timeout, and authenticated request headers
+- Flutter SDK รุ่นที่รองรับ Dart `^3.9.2`
+- Backend API และฐานข้อมูลที่ตั้งค่าเรียบร้อยตาม [Backend README](https://github.com/methiyada-da/pct-app-backend#readme)
 
-## Setup
+ติดตั้ง dependencies:
 
 ```bash
 flutter pub get
+```
+
+ค่า API Base URL อยู่ใน `lib/config.dart` และมีค่าเริ่มต้นเป็น:
+
+```text
+http://127.0.0.1/mini_backend
+```
+
+ค่า `127.0.0.1` ใช้ได้เมื่อ Frontend และ Backend ทำงานบนเครื่องเดียวกัน เช่น รัน Flutter Web บนเครื่องที่เปิด XAMPP:
+
+```bash
+flutter run -d chrome --web-port=8080
+```
+
+หาก Backend อยู่คนละ host หรือทดสอบผ่านอุปกรณ์อื่น ให้กำหนด URL ตอนรันโดยไม่ต้องแก้ source code:
+
+```bash
 flutter run --dart-define=API_BASE_URL=http://YOUR_LOCAL_IP/mini_backend
 ```
 
-`API_BASE_URL` has one development fallback in `lib/config.dart`; override it for each environment with `--dart-define`. Use an HTTPS API URL for any public demo or production-like deployment. Android permits cleartext traffic only in the debug manifest for local development; the main/release manifest does not enable it globally.
+origin ของ Flutter Web ต้องอยู่ในรายการ `ALLOWED_ORIGINS` ของ Backend ด้วย สำหรับระบบที่เปิดให้เข้าถึงสาธารณะควรใช้ HTTPS แต่โปรเจกต์นี้ระบุการใช้งานเฉพาะ Local
 
-## Backend Setup
+## การทดสอบ
 
-Configure and run the sibling `mini_backend` PHP project, import its `database/schema.sql`, and make the API reachable from the emulator or device. Follow the backend README for `.env`, CORS, and authentication setup.
+สามารถตรวจสอบ static analysis และรันชุดทดสอบที่มีอยู่ได้ด้วยคำสั่ง:
 
-## Security Note
+```bash
+flutter analyze
+flutter test
+```
 
-Never commit `.env` files, authentication secrets, passwords, logs, uploaded user images, or database exports containing real user data.
+ผลลัพธ์ของคำสั่งขึ้นอยู่กับ Flutter SDK และ Environment ของเครื่องที่รัน
+
+## Backend Repository
+
+[github.com/methiyada-da/pct-app-backend](https://github.com/methiyada-da/pct-app-backend)
+
+## โครงสร้างโปรเจกต์
+
+```text
+mini_frontend/
+├── assets/
+│   └── fonts/                 # ฟอนต์ Kanit
+├── lib/
+│   ├── auth/                  # สมัครสมาชิกและเข้าสู่ระบบ
+│   ├── chat/                  # รายการสนทนาและห้องแชต
+│   ├── profile/               # โปรไฟล์ รูปภาพ และรหัสผ่าน
+│   ├── search/                # หน้าแรก ค้นหา และรายละเอียดติวเตอร์
+│   ├── tutor/                 # สมัครติวเตอร์และจัดการคอร์ส
+│   ├── config.dart            # API Base URL, timeout และ request headers
+│   ├── main.dart              # จุดเริ่มต้นแอป
+│   └── main_navigation.dart   # Navigation และสถานะผู้ใช้
+├── test/                      # ชุดทดสอบ Flutter
+└── pubspec.yaml               # dependencies และ assets
+```
+
+โฟลเดอร์ platform เช่น `android/`, `ios/`, `web/`, `windows/`, `linux/` และ `macos/` เป็นโครงสร้างที่ Flutter ใช้สำหรับแต่ละแพลตฟอร์ม
+
+## ทีมพัฒนา
+
+โปรเจกต์นี้เป็นงานกลุ่มจำนวน 2 คน:
+
+- [methiyada-da](https://github.com/methiyada-da)
+- [MatchaWannoi](https://github.com/MatchaWannoi)
+
+### หน้าที่รับผิดชอบ
+
+ร่วมกันวิเคราะห์ ออกแบบ และพัฒนาโปรเจกต์
+
+## หมายเหตุ
+
+โปรเจกต์นี้เป็น Mini Project สำหรับการศึกษาและใช้เป็น Portfolio ไม่ใช่ Production Application และยังไม่ได้ระบุการ Deploy สำหรับใช้งานออนไลน์
